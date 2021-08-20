@@ -1,5 +1,6 @@
 import time
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 # initiates the selenium connection, by using the `webdriverfile` path, the `url` to open, the timeout `to` to wait for page load, and, optionally, waiting for the login of the user
@@ -23,6 +24,8 @@ def run_action_on_object(brw, res, e, obj, checkfilterpassed_callback=None):
 	if e.get('action') == 'click':
 		try: obj.click()
 		except: brw.execute_script("arguments[0].click();", obj)
+	if e.get('action') == 'empty_value':
+		while obj.get_attribute('value') != '': obj.send_keys(Keys.BACKSPACE)
 	if e.get('action') == 'send_keys': obj.send_keys(e.get('action_parameters'))
 	if e.get('action') == 'store_text': res[e.get('action_parameters')] = obj.text
 	if e.get('action') == 'foreach':
