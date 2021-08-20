@@ -25,7 +25,7 @@ def run_action_on_object(brw, res, e, obj, checkfilterpassed_callback=None):
 		except: brw.execute_script("arguments[0].click();", obj)
 	if e.get('action') == 'send_keys': obj.send_keys(e.get('action_parameters'))
 	if e.get('action') == 'store_text': res[e.get('action_parameters')] = obj.text
-	if e.get('action') == 'store_foreach':
+	if e.get('action') == 'foreach':
 		res['list'] = []
 		sub_brws = brw.find_elements_by_class_name(e.get('class_name'))
 		for sub_brw in sub_brws:
