@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then
 	exit 0
 fi
 
-rm -rf seleniumprocessor/__pycache__
+rm -rf seleniumprocessor/__pycache__ 2> /dev/null
 
 git add .
 git commit -m "$1"
