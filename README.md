@@ -36,6 +36,7 @@ Install a [Selenium](https://www.selenium.dev) web driver, e.g., the [Chrome Web
 
 The main process object is a list of actions to sequentially execute on the process.
 Each action is represented by an array map with the following fields:
+* `name`: the name identifying the DOM objects to find
 * `class_name`: the class name identifying the DOM objects to find
 * `index` (optional): in case of multiple DOM objects with the same class (or in case a DOM object which is not the first one has to be considered), it is possible to specify the index of the DOM object, in the list of DOM objects using the same class
 * `sleep` (optional): the sleep timeout used after the action is performed
