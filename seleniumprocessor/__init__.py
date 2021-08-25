@@ -27,12 +27,12 @@ def navigatepath(brw, n, p, to):
 			except: brw.execute_script("arguments[0].click();", e)
 			time.sleep(to)
 			if len(p) <= 1: break
-			try: navigatepath(brw, p[1:])
+			try: navigatepath(brw, n, p[1:], to)
 			except:
 				try: e.click()
 				except: brw.execute_script("arguments[0].click();", e)
 				time.sleep(to)
-				navigatepath(brw, p[1:])
+				navigatepath(brw, n, p[1:], to)
 
 def run_action_on_object(brw, res, e, obj, checkfilterpassed_callback=None):
 	if not checkfilterpassed_callback is None:
