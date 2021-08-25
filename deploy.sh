@@ -5,6 +5,8 @@ if [ $# -ne 1 ]; then
 	exit 0
 fi
 
+rm -rf seleniumprocessor/__pycache__
+
 git add .
 git commit -m "$1"
 git push -u origin main
