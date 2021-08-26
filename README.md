@@ -17,11 +17,12 @@ Install a [Selenium](https://www.selenium.dev) web driver, e.g., the [Chrome Web
 
 #### Available methods ####
 
-`initiate_connection(webdriverfile, url, to, loginrequired=True)`, returning a `selenium.webdriver.chrome.webdriver.WebDriver` object allowing browser control
+`initiate_connection(webdriverfile, url, to, loginrequired=True, headless=False)`, returning a `selenium.webdriver.chrome.webdriver.WebDriver` object allowing browser control
 * `webdriverfile` is the path of the [Selenium](https://www.selenium.dev) web driver file
 * `url` is the url to open
 * `to` is the timeout to wait, regarding page loading
 * `loginrequired` specifies if a manual login from the user is required (`True`) or not (`False`)
+* `headless` specifies if the browser has to be executed in headless mode (`True`) or not (`False`)
 
 `run_process(brw, url_home, to, p, backtohome_begin=True, backtohome_end=True, checkfilterpassed_callback=None)`, returning an object, as specified in the process `p`
 * `brw` the `selenium.webdriver.chrome.webdriver.WebDriver` object used to control the browser

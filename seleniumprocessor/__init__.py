@@ -5,10 +5,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 
 # initiates the selenium connection, by using the `webdriverfile` path, the `url` to open, the timeout `to` to wait for page load, and, optionally, waiting for the login of the user
-def initiate_connection(webdriverfile, url, to, loginrequired=True):
+def initiate_connection(webdriverfile, url, to, loginrequired=True, headless=False):
 	# starting browser
 	chrome_options = Options()
-	#chrome_options.add_argument('--headless')
+	if headless: chrome_options.add_argument('--headless')
 	brw = webdriver.Chrome(executable_path=webdriverfile, options=chrome_options)
 	# opening the home page
 	brw.get(url)
