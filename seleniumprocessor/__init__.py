@@ -46,6 +46,7 @@ def run_action_on_object(brw, res, e, obj, checkfilterpassed_callback=None):
 	if e.get('action') == 'send_keys': obj.send_keys(e.get('action_parameters'))
 	if e.get('action') == 'store_text': res[e.get('action_parameters')] = obj.text
 	if e.get('action') == 'scroll_to': ActionChains(brw).move_to_element(obj).perform()
+	if e.get('action') == 'select': Select(obj).select_by_visible_text(e.get('action_parameters'))
 	if e.get('action') == 'foreach':
 		res['list'] = []
 		if not e.get('class_name') is None: sub_brws = brw.find_elements_by_class_name(e.get('class_name'))
@@ -72,9 +73,11 @@ def run_process(brw, url_home, to, p, backtohome_begin=True, backtohome_end=True
 		if e.get('index') is None:
 			if not e.get('class_name') is None: obj = brw.find_element_by_class_name(e.get('class_name'))
 			if not e.get('name') is None: obj = brw.find_element_by_name(e.get('name'))
+			if not e.get('id') is None: obj = brw.find_element_by_id(e.get('id'))
 		else:
 			if not e.get('class_name') is None: obj = brw.find_elements_by_class_name(e.get('class_name'))[e.get('index')]
 			if not e.get('name') is None: obj = brw.find_elements_by_name(e.get('name'))[e.get('index')]
+			if not e.get('id') is None: obj = brw.find_elements_by_id(e.get('id'))[e.get('index')]
 		res = run_action_on_object(brw, res, e, obj, checkfilterpassed_callback)
 		if not e.get('sleep') is None: time.sleep(e.get('sleep'))
 	if backtohome_end:
