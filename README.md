@@ -102,13 +102,14 @@ brw = seleniumprocessor.initiate_connection('./chromedriver', URL_HOME, 3, False
 # define the process to be executed
 p = [
     {'id':'gsc_prf_in', 'action':'store_text', 'action_parameters':'name'}, # storing researcher's name
-    {'class_name':'gs_lbl', 'index':-1, 'action':'click-repeated', 'action_parameters':'gsc_a_tr', 'sleep':SLEEP_TO}, # clicking the button at the end of the page, to extend the list of publications
+    {'class_name':'gsc_rsb_std', 'index':0, 'action':'store_text', 'action_parameters':'citations'}, # storing researcher's total citation number
+    {'class_name':'gsc_rsb_std', 'index':1, 'action':'store_text', 'action_parameters':'hindex'}, # storing researcher's H-index
     {'class_name':'gsc_a_tr', 'action':'foreach', 'action_parameters':[ # looping on all publications
         {'class_name':'gsc_a_at', 'action':'store_text', 'action_parameters':'title'}, # storing the publication name
         {'class_name':'gs_gray', 'index':0, 'action':'store_text', 'action_parameters':'authors'}, # storing the authors of the publication
         {'class_name':'gs_gray', 'index':1, 'action':'store_text', 'action_parameters':'venue'}, # storing the venue of the publication
         {'class_name':'gsc_a_ac', 'action':'store_text', 'action_parameters':'citations'}, # storing the number of citations of the publication
-        {'class_name':'gsc_a_h', 'action':'store_text', 'action_parameters':'year'}, # storing the year of the publication
+        {'class_name':'gsc_a_h', 'action':'store_text', 'action_parameters':'year'} # storing the year of the publication
     ]}
 ]
 
