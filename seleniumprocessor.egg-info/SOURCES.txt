@@ -1,0 +1,7 @@
+README.md
+setup.py
+seleniumprocessor/__init__.py
+seleniumprocessor.egg-info/PKG-INFO
+seleniumprocessor.egg-info/SOURCES.txt
+seleniumprocessor.egg-info/dependency_links.txt
+seleniumprocessor.egg-info/top_level.txt
