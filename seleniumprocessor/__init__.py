@@ -64,7 +64,6 @@ def run_action_on_object(brw, res, e, obj, checkfilterpassed_callback=None):
 				if obj is None: break
 				if not c is None:
 					new_c = len(brw.find_elements_by_class_name(e.get('action_parameters')))
-					print('{} vs {}'.format(c, new_c))
 					if c == new_c: break
 					c = new_c
 				try: obj.click()
