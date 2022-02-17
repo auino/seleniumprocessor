@@ -45,6 +45,7 @@ Each action is represented by an array map with the following fields:
 * `action_parameters` (optional): its definition depends on the `action` field
 * `action`: the action to execute:
     * `click`: to perform a click on the DOM object
+    * `click-repeated`: to perform a repeated click on the DOM object, until the object is present (useful with `sleep`, e.g., for pages loading portions of a lists, with a final button to load additional results); the optional `action_parameters` parameter represents the class name of the objects to count: when the object is unchanged, repeated clicks will be interrupted
     * `navigate`: to navigate by clicking a specific sequence of objects, by their text value; the `action_parameters` parameter represents the `>` separated navigation path
     * `scroll_to`: to scroll to the specific element
     * `empty_value`: to empty the `value` property of the DOM object
@@ -55,6 +56,8 @@ Each action is represented by an array map with the following fields:
 * `context` (optional): in case the `foreach` action is used, the context of all sub-items to be found will refer to the parent DOM object used in the loop; in this case, to consider the whole page, it is possible to specify `whole_page` as `context`
 
 ### Sample usage ###
+
+#### Get all repositories of [@auino](https://github.com/auino) ####
 
 ```
 # import the library
@@ -74,6 +77,39 @@ p = [
 		{'class_name':'wb-break-all', 'action':'store_text', 'action_parameters':'name'}, # storing the repository name
 		{'class_name':'color-text-secondary', 'action':'store_text', 'action_parameters':'description'} # storing the repository description
 	]}
+]
+
+# run the process
+data = seleniumprocessor.run_process(brw, URL_HOME, SLEEP_TO, p, backtohome_begin=False)
+
+# showing resulting data
+print(data)
+```
+
+#### Get all publications of a given user from [Google Scholar](https://scholar.google.com) ####
+
+```
+import seleniumprocessor
+
+# define initial variables
+USERPROFILE = 'UlbGEQwAAAAJ'
+URL_HOME = 'https://scholar.google.com/citations?user={}'.format(USERPROFILE)
+SLEEP_TO = 3
+
+# initiate a connection on auino GitHub page (not requiring a login)
+brw = seleniumprocessor.initiate_connection('./chromedriver', URL_HOME, 3, False)
+
+# define the process to be executed
+p = [
+    {'id':'gsc_prf_in', 'action':'store_text', 'action_parameters':'name'}, # storing researcher's name
+    {'class_name':'gs_lbl', 'index':-1, 'action':'click-repeated', 'action_parameters':'gsc_a_tr', 'sleep':SLEEP_TO}, # clicking the button at the end of the page, to extend the list of publications
+    {'class_name':'gsc_a_tr', 'action':'foreach', 'action_parameters':[ # looping on all publications
+        {'class_name':'gsc_a_at', 'action':'store_text', 'action_parameters':'title'}, # storing the publication name
+        {'class_name':'gs_gray', 'index':0, 'action':'store_text', 'action_parameters':'authors'}, # storing the authors of the publication
+        {'class_name':'gs_gray', 'index':1, 'action':'store_text', 'action_parameters':'venue'}, # storing the venue of the publication
+        {'class_name':'gsc_a_ac', 'action':'store_text', 'action_parameters':'citations'}, # storing the number of citations of the publication
+        {'class_name':'gsc_a_h', 'action':'store_text', 'action_parameters':'year'}, # storing the year of the publication
+    ]}
 ]
 
 # run the process
